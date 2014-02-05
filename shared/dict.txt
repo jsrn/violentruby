@@ -1,0 +1,11 @@
+this
+is
+a
+test
+dictionary
+with
+some
+random
+words
+jsrn
+egg
