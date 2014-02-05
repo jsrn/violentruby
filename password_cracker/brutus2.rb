@@ -33,23 +33,10 @@ class Brutus
   end
 
   def test_pass(type, salt, hash)
-    case type
-    when "1"
-      brute_md5(salt, hash)
-    when "2a"
-      brute_blowfish(salt, hash)
-    when "5"
-      brute_sha256(salt, hash)
-    when "6"
-      brute_sha512(salt, hash)
-    end
-  end
-
-  def brute_sha512(salt, hash)
     File.open('dict.txt').read.each_line do |line|
       line.strip!
-      old_hash = "$6$#{salt}$#{hash}"
-      new_hash = line.crypt("$6$#{salt}")
+      old_hash = "$#{type}$#{salt}$#{hash}"
+      new_hash = line.crypt("$#{type}$#{salt}")
       if new_hash == old_hash
         puts " -  FOUND PASSWORD: #{line}"
         return
