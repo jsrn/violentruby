@@ -33,19 +33,3 @@ class Unzipper
 end
 
 unzipper = Unzipper.new
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
