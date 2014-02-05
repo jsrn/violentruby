@@ -10,13 +10,12 @@ class Brutus
 
     File.open('hashes2.txt').read.each_line do |line|
       line_parts = line.split(":")
-     # puts line_parts
       user = line_parts[0]
       hash = line_parts[1]
       hash[0] = ""
-      salt = hash[0..1]
-      2.times { hash[0] = "" }
+      type, salt, hash = hash.split("$")
       puts "[+] cracking pass for user: #{user}"
+      puts " -  type: #{type}"
       puts " -  hash: #{hash}"
       puts " -  salt: #{salt}"
       test_pass(salt, hash)
@@ -35,5 +34,3 @@ class Brutus
 end
 
 brutus = Brutus.new
-
-#puts "egg".crypt("HX")

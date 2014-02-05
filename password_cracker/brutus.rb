@@ -10,7 +10,6 @@ class Brutus
 
     File.open('hashes.txt').read.each_line do |line|
       line_parts = line.split(":")
-     # puts line_parts
       user = line_parts[0]
       hash = line_parts[1]
       hash[0] = ""
