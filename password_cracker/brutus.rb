@@ -24,6 +24,7 @@ class Brutus
 
   def test_pass(salt, hash)
     File.open('dict.txt').read.each_line do |line|
+      line.strip!
       if line.crypt(salt) == "#{salt}#{hash}"
         puts " -  FOUND PASSWORD: #{line}"
         return

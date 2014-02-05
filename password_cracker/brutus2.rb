@@ -47,7 +47,10 @@ class Brutus
 
   def brute_sha512(salt, hash)
     File.open('dict.txt').read.each_line do |line|
-      if line.crypt(salt) == "#{salt}#{hash}"
+      line.strip!
+      old_hash = "$6$#{salt}$#{hash}"
+      new_hash = line.crypt("$6$#{salt}")
+      if new_hash == old_hash
         puts " -  FOUND PASSWORD: #{line}"
         return
       end
