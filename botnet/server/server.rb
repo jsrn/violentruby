@@ -2,10 +2,21 @@
 require_relative "connectedclient.rb"
 
 class Server
-  @clients = []
+  def initialize
+    @clients = []
 
-  def add_client
-    puts "Adding client"
+    (1..10).each do |id|
+      new_client    = ConnectedClient.new
+      new_client.id = id
+
+      add_client(new_client)
+    end
+  end
+
+  def add_client(client)
+    puts "[+] adding new client"
+    client.print_status
+    @clients << client
   end
 
   def remove_client(index)
@@ -28,3 +39,5 @@ class Server
     client.send_command(command)
   end
 end
+
+s = Server.new
