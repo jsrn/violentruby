@@ -1,15 +1,32 @@
 #!/usr/bin/env ruby
+require 'socket'
 require_relative "connectedclient.rb"
 
 class Server
   def initialize
-    @clients = []
+    @port = "31337"
 
-    (1..10).each do |id|
-      new_client    = ConnectedClient.new
-      new_client.id = id
+    start_listener
+    #@clients = []
+#
+    #(1..10).each do |id|
+    #  new_client    = ConnectedClient.new
+    #  new_client.id = id
+#
+    #  add_client(new_client)
+    #end
+  end
 
-      add_client(new_client)
+  def start_listener
+    puts "[*] starting listener"
+    server = TCPServer.open(@port)   # Socket to listen on port 2000
+    loop do                         # Servers run forever
+      Thread.start(server.accept) do |client|
+        puts "[+] accepted client"
+        client.puts(Time.now.ctime) # Send the time to the client
+        client.puts "[-] closing the connection"
+        client.close                # Disconnect from the client
+      end
     end
   end
 
