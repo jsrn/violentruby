@@ -19,13 +19,6 @@ class Server
 
       sleep(2)
     end
-#
-    #(1..10).each do |id|
-    #  new_client    = ConnectedClient.new
-    #  new_client.id = id
-#
-    #  add_client(new_client)
-    #end
   end
 
   def start_listener
@@ -65,6 +58,8 @@ class Server
 
   def command_client(client, command)
     client.puts("EXEC " << command)
+    result = client.gets
+    puts result.chop
   end
 end
 
